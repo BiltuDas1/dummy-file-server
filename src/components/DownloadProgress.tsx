@@ -44,7 +44,7 @@ export default function DownloadProgress({
   elapsedSeconds,
 }: DownloadProgressProps) {
   return (
-    <>
+    <section className="text-subtext">
       <p className="mt-3">
         Progress: {formatBytes(received)} / {formatBytes(targetBytes)}
       </p>
@@ -62,6 +62,6 @@ export default function DownloadProgress({
       )}
 
       {error && <p className="text-red-500">{error}</p>}
-    </>
+    </section>
   );
 }

@@ -28,7 +28,7 @@ export default function DownloadControls({
   const concurrencyOptions = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16];
 
   return (
-    <div className="mt-4 flex flex-wrap items-center gap-2">
+    <div className="mt-4 flex flex-col gap-2 text-white">
       <label htmlFor="sizes">Download size:</label>
 
       <select
@@ -36,7 +36,7 @@ export default function DownloadControls({
         value={size}
         onChange={(event) => onSizeChange(event.target.value)}
         disabled={downloading}
-        className="rounded border p-1"
+        className="rounded border p-1 w-60 bg-dark"
       >
         {sizes.map((value) => (
           <option key={value} value={value}>
@@ -52,7 +52,7 @@ export default function DownloadControls({
         value={concurrency}
         onChange={(event) => onConcurrencyChange(event.target.value)}
         disabled={downloading}
-        className="rounded border p-1"
+        className="rounded border p-1 w-60 bg-dark"
       >
         {concurrencyOptions.map((value) => (
           <option key={value} value={value}>
@@ -64,7 +64,7 @@ export default function DownloadControls({
       <button
         onClick={onDownload}
         disabled={downloading}
-        className="rounded border p-1 disabled:opacity-50"
+        className="rounded border p-1 disabled:opacity-50 bg-btn hover:bg-btn-hover text-dark w-60"
       >
         {downloading ? "Downloading..." : "Download"}
       </button>

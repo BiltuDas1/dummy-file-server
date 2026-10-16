@@ -24,27 +24,27 @@ export default function Homepage() {
   }
 
   return (
-    <section>
-      <h1 className="text-2xl font-bold">Test Download</h1>
+    <section className="w-full h-full flex flex-row justify-center items-center">
+      <div className="bg-section border border-section-border p-8 w-100 rounded-2xl">
+        <DownloadControls
+          size={size}
+          concurrency={concurrency}
+          downloading={downloading}
+          onSizeChange={setSize}
+          onConcurrencyChange={setConcurrency}
+          onDownload={handleDownload}
+        />
 
-      <DownloadControls
-        size={size}
-        concurrency={concurrency}
-        downloading={downloading}
-        onSizeChange={setSize}
-        onConcurrencyChange={setConcurrency}
-        onDownload={handleDownload}
-      />
-
-      <DownloadProgress
-        received={received}
-        targetBytes={targetBytes}
-        error={error}
-        downloading={downloading}
-        averageMbps={averageMbps}
-        averageMiBs={averageMiBs}
-        elapsedSeconds={elapsedSeconds}
-      />
+        <DownloadProgress
+          received={received}
+          targetBytes={targetBytes}
+          error={error}
+          downloading={downloading}
+          averageMbps={averageMbps}
+          averageMiBs={averageMiBs}
+          elapsedSeconds={elapsedSeconds}
+        />
+      </div>
     </section>
   );
 }
