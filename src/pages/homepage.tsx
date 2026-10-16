@@ -14,7 +14,9 @@ export default function Homepage() {
     averageMbps,
     averageMiBs,
     elapsedSeconds,
+    estimatedSeconds,
     startDownload,
+    cancelDownload,
   } = useDownload();
 
   const targetBytes = Number(size) * 1024 ** 2;
@@ -25,7 +27,7 @@ export default function Homepage() {
 
   return (
     <section className="w-full h-full flex flex-row justify-center items-center">
-      <div className="bg-section border border-section-border p-8 w-100 rounded-2xl">
+      <div className="bg-section border border-section-border mt-4 p-6 w-76 rounded-2xl">
         <DownloadControls
           size={size}
           concurrency={concurrency}
@@ -33,6 +35,7 @@ export default function Homepage() {
           onSizeChange={setSize}
           onConcurrencyChange={setConcurrency}
           onDownload={handleDownload}
+          onCancelDownload={cancelDownload}
         />
 
         <DownloadProgress
@@ -43,6 +46,7 @@ export default function Homepage() {
           averageMbps={averageMbps}
           averageMiBs={averageMiBs}
           elapsedSeconds={elapsedSeconds}
+          estimatedSeconds={estimatedSeconds}
         />
       </div>
     </section>

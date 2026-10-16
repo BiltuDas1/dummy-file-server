@@ -3,6 +3,7 @@ export async function downloadBytes(
   concurrency: number,
   onProgress: (received: number) => void,
   onStart: (time: number) => void,
+  controller: AbortController,
 ): Promise<void> {
   if (!Number.isSafeInteger(targetBytes) || targetBytes <= 0) {
     throw new Error("Download size must be a positive safe integer.");
@@ -11,8 +12,6 @@ export async function downloadBytes(
   if (!Number.isInteger(concurrency) || concurrency < 1) {
     throw new Error("Concurrency must be at least 1.");
   }
-
-  const controller = new AbortController();
 
   let totalBytes = 0;
   let stopped = false;

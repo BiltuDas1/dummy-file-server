@@ -6,6 +6,7 @@ type DownloadProgressProps = {
   averageMbps: number | null;
   averageMiBs: number | null;
   elapsedSeconds: number;
+  estimatedSeconds: number | null;
 };
 
 function formatBytes(bytes: number): string {
@@ -42,26 +43,41 @@ export default function DownloadProgress({
   averageMbps,
   averageMiBs,
   elapsedSeconds,
+  estimatedSeconds,
 }: DownloadProgressProps) {
   return (
-    <section className="text-subtext">
-      <p className="mt-3">
-        Progress: {formatBytes(received)} / {formatBytes(targetBytes)}
-      </p>
-
-      {downloading && (
-        <p className="mt-2 text-sm">
-          Elapsed: {elapsedSeconds.toFixed(2)} seconds
+    <section>
+      <div className="mt-3 text-subtext text-sm">
+        <p>
+          Progress: {formatBytes(received)} / {formatBytes(targetBytes)}
         </p>
-      )}
 
-      {!downloading && averageMbps !== null && averageMiBs !== null && (
-        <p className="mt-2">
-          Average speed: {formatSpeed(averageMbps, averageMiBs)}
-        </p>
-      )}
+        {downloading && (
+          <>
+            <p>
+              Elapsed:{" "}
+              {elapsedSeconds < 60
+                ? `${elapsedSeconds.toFixed(1)} seconds`
+                : `${Math.floor(elapsedSeconds / 60)}m ${(elapsedSeconds % 60).toFixed(1)}s`}
+            </p>
 
-      {error && <p className="text-red-500">{error}</p>}
+            <p>
+              ETA:{" "}
+              {estimatedSeconds === null
+                ? "Calculating..."
+                : estimatedSeconds >= 60
+                  ? `${Math.floor(estimatedSeconds / 60)}m ${Math.ceil(estimatedSeconds % 60)}s`
+                  : `${Math.ceil(estimatedSeconds)} seconds`}
+            </p>
+          </>
+        )}
+
+        {!downloading && averageMbps !== null && averageMiBs !== null && (
+          <p>Average speed: {formatSpeed(averageMbps, averageMiBs)}</p>
+        )}
+
+        {error && <p className="text-red-500">{error}</p>}
+      </div>
     </section>
   );
 }
